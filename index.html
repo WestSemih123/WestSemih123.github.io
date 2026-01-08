@@ -53,7 +53,7 @@
             object-fit: cover;
             margin-bottom: 1rem;
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-            background-color: #fff; /* Resim yoksa boşluk beyaz görünsün */
+            background-color: #fff;
         }
         
         h1 {
@@ -109,7 +109,7 @@
         /* --- KARTLAR --- */
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
         .project-card {
@@ -119,17 +119,21 @@
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .project-card:hover {
             transform: translateY(-10px);
             border-color: var(--vurgu-rengi);
+            box-shadow: 0 20px 40px -10px rgba(0, 242, 255, 0.1);
         }
-        .project-card h3 { margin-top: 0; color: #fff; }
-        .project-card p { color: var(--yazi-rengi-ikincil); font-size: 0.95rem; }
+        .project-card h3 { margin-top: 0; color: #fff; font-size: 1.3rem;}
+        .project-card p { color: var(--yazi-rengi-ikincil); font-size: 0.95rem; margin-bottom: 20px;}
 
         .project-link {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: auto; 
             color: var(--vurgu-rengi);
             text-decoration: none;
             font-weight: 600;
@@ -175,10 +179,10 @@
 
     <header>
         <div class="container">
-            <img src="https://cdn-icons-png.flaticon.com/512/4792/4792929.png" alt="Profil" class="profile-img">
+            <img src="https://avatars.githubusercontent.com/u/138379685?v=4" alt="Semih Kepenekli" class="profile-img">
             
             <h1>Merhaba, Ben <span>Semih Kepenekli</span></h1>
-            <p>Geliştirici | Mühendis</p>
+            <p>Geliştirici | Elektrik-Elektronik Mühendisi Adayı</p>
             <a href="#iletisim" class="btn">Bana Ulaşın</a>
         </div>
     </header>
@@ -188,30 +192,32 @@
             <h2>Hakkımda</h2>
             <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
                 Ben Semih, İzmir Ekonomi Üniversitesi'nde burslu olarak Elektrik-Elektronik Mühendisliği okuyorum. 
-                Şu an 1. sınıf öğrencisiyim. Yazılım programlama ve siber güvenlik alanlarıyla ilgilenmeyi ve kendimi geliştirmeyi seviyorum.
+                1. sınıf öğrencisiyim. Yazılım programlama, gömülü sistemler ve siber güvenlik alanlarıyla 
+                ilgileniyorum. Python ve C dillerinde projeler geliştirerek mühendislik becerilerimi 
+                ileri taşımayı hedefliyorum.
             </p>
         </section>
 
         <section id="projeler">
-            <h2>Yaptığım İşler</h2>
+            <h2>Projelerim</h2>
             <div class="projects">
                 
                 <div class="project-card">
-                    <h3>Proje 1: Python Veri Analizi</h3>
-                    <p>Python kullanarak veri setlerini incelediğim ve görselleştirdiğim başlangıç projelerim.</p>
-                    <a href="#" class="project-link">İncele &rarr;</a>
+                    <h3>🛠️ Mühendislik Asistanı</h3>
+                    <p>Elektrik-Elektronik ve Bilgisayar mühendisliği öğrencileri için geliştirdiğim kapsamlı araç. Direnç renk kodu çözücü, Mantık Kapıları simülasyonu, PCB yol hesaplayıcı, 555 zamanlayıcı ve bilimsel hesap makinesi gibi 15 farklı modül içerir.</p>
+                    <a href="https://github.com/WestSemih123/Muhendislik-Asistani" target="_blank" class="project-link">Kodları İncele &rarr;</a>
                 </div>
 
                 <div class="project-card">
-                    <h3>Proje 2: Elektronik Devreler</h3>
-                    <p>Mühendislik eğitimimde öğrendiğim devre tasarımları ve laboratuvar çalışmalarım.</p>
-                    <a href="#" class="project-link">İncele &rarr;</a>
+                    <h3>📂 Smart Desktop Organizer</h3>
+                    <p>Masaüstü ve indirilenler klasörünü otomatik düzenleyen Python tabanlı otomasyon aracı. Çoklu klasör takibi, Google Drive/OneDrive bulut yedekleme desteği, akıllı zip çıkarma ve modern arayüz (GUI) özelliklerine sahiptir.</p>
+                    <a href="https://github.com/WestSemih123/Smart-Desktop-Organizer" target="_blank" class="project-link">Kodları İncele &rarr;</a>
                 </div>
 
                 <div class="project-card">
-                    <h3>Siber Güvenlik Çalışmaları</h3>
-                    <p>CTF çözümleri ve siber güvenlik üzerine aldığım notlar/araştırmalar.</p>
-                    <a href="#" class="project-link">İncele &rarr;</a>
+                    <h3>🐧 Linux & Sistem Çalışmaları</h3>
+                    <p>Arch Linux özelleştirmeleri, Kernel derleme denemeleri ve Assembly dili üzerine yaptığım kişisel araştırmalar. Açık kaynak dünyasına ve düşük seviye programlamaya olan ilgim.</p>
+                    <a href="https://github.com/WestSemih123" target="_blank" class="project-link">GitHub Profilim &rarr;</a>
                 </div>
 
             </div>
