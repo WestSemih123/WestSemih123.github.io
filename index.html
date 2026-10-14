@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semih Kepenekli | Electrical & Electronics Engineering</title>
+    <meta name="description" content="Semih Kepenekli - Electrical and Electronics Engineering Student at Izmir University of Economics. Embedded Systems, Microcontrollers, C, Python, MATLAB.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: JetBrains Mono & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        pcb: {
+                            950: '#070b0e',
+                            900: '#0c1318',
+                            800: '#131f28',
+                            accent: '#10b981', // Emerald
+                            cyan: '#06b6d4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #070b0e;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+        }
+        .card-glow {
+            transition: all 0.25s ease;
+        }
+        .card-glow:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
+
+    <!-- Navbar -->
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-pcb-950/80 border-b border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-mono font-bold text-lg tracking-tight flex items-center gap-2 text-white">
+                <span class="text-emerald-400">&lt;</span>SK<span class="text-emerald-400">/&gt;</span>
+                <span class="text-xs font-normal text-slate-400 hidden sm:inline-block border-l border-slate-700 pl-2">EEE @ IUE</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-emerald-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-emerald-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-emerald-400 transition-colors">Projects</a>
+                <a href="#certifications" class="hover:text-emerald-400 transition-colors">Certifications</a>
+                <a href="#education" class="hover:text-emerald-400 transition-colors">Education</a>
+            </nav>
+            <a href="#contact" class="font-mono text-xs px-4 py-2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all">
+                ./contact.sh
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pt-28 pb-20">
+
+        <!-- Hero Section -->
+        <section id="about" class="py-12 md:py-20 grid md:grid-cols-12 gap-10 items-center">
+            <div class="md:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    İzmir, Türkiye // Open to Connect
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white">
+                    Semih Kepenekli
+                </h1>
+                
+                <p class="font-mono text-lg sm:text-xl text-emerald-400">
+                    Electrical &amp; Electronics Engineering Student at IUE
+                </p>
+                
+                <p class="text-slate-300 leading-relaxed text-base sm:text-lg">
+                    Second-year Electrical and Electronics Engineering student at Izmir University of Economics with a strong interest in <span class="text-white font-medium">embedded systems</span>, <span class="text-white font-medium">microcontroller architectures</span>, and <span class="text-white font-medium">software development</span>. Focused on building practical hardware and firmware projects using <span class="font-mono text-emerald-300">C</span>, <span class="font-mono text-emerald-300">Python</span>, and modern simulation tools like <span class="font-mono text-emerald-300">MATLAB</span>.
+                </p>
+
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="mailto:semihkepenekli157@gmail.com" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-sm transition-all">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        Email Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/semih-kepenekli" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-pcb-800 hover:bg-slate-800 text-white border border-slate-700 font-medium text-sm transition-all">
+                        <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+                        LinkedIn
+                    </a>
+                    <!-- GitHub kullanıcı adını buradan güncelleyebilirsin -->
+                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-pcb-800 hover:bg-slate-800 text-white border border-slate-700 font-medium text-sm transition-all">
+                        <i data-lucide="github" class="w-4 h-4 text-slate-300"></i>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Terminal Box -->
+            <div class="md:col-span-5">
+                <div class="rounded-xl bg-pcb-900 border border-slate-800 shadow-2xl overflow-hidden font-mono text-xs sm:text-sm">
+                    <div class="bg-pcb-800 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                        </div>
+                        <span class="text-slate-400 text-xs">semih@eee-lab: ~/firmware</span>
+                    </div>
+                    <div class="p-5 space-y-3 text-slate-300 leading-relaxed">
+                        <div>
+                            <span class="text-emerald-400">$</span> cat profile_config.h
+                        </div>
+                        <div class="text-slate-400 pl-2 border-l-2 border-slate-800 space-y-1">
+                            <p><span class="text-cyan-400">#define</span> ENGINEER <span class="text-amber-300">"Semih Kepenekli"</span></p>
+                            <p><span class="text-cyan-400">#define</span> UNIVERSITY <span class="text-amber-300">"Izmir Univ. of Economics"</span></p>
+                            <p><span class="text-cyan-400">#define</span> GRAD_YEAR <span class="text-emerald-400">2029</span></p>
+                        </div>
+                        <div class="pt-1">
+                            <span class="text-emerald-400">$</span> ./check_focus --verbose
+                        </div>
+                        <div class="text-slate-300 space-y-1">
+                            <p>[<span class="text-emerald-400">OK</span>] Embedded Systems &amp; Microcontrollers</p>
+                            <p>[<span class="text-emerald-400">OK</span>] Low-Level Programming (C / Python)</p>
+                            <p>[<span class="text-emerald-400">OK</span>] Digital Logic Design &amp; MATLAB Sim</p>
+                            <p>[<span class="text-emerald-400">OK</span>] UAV Piloting &amp; Marine VHF Radio</p>
+                        </div>
+                        <div class="pt-1 flex items-center gap-1">
+                            <span class="text-emerald-400">$</span>
+                            <span class="w-2 h-4 bg-emerald-400 animate-pulse inline-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Skills & Domains -->
+        <section id="skills" class="py-14 border-t border-slate-800/80">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="cpu" class="w-6 h-6 text-emerald-400"></i>
+                <h2 class="text-2xl font-bold text-white">Technical Arsenal &amp; Focus Areas</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Hardware & Embedded -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-4">
+                        <i data-lucide="microchip" class="w-5 h-5 text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Embedded &amp; Hardware</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Designing practical hardware setups, exploring microcontroller architectures, and implementing digital logic circuits.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-emerald-300 border border-slate-700">Embedded Systems</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-emerald-300 border border-slate-700">Microcontrollers</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-emerald-300 border border-slate-700">Digital Logic Design</span>
+                    </div>
+                </div>
+
+                <!-- Software & Simulation -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow">
+                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-4">
+                        <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Firmware &amp; Simulation</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Writing low-level code, developing automation tools, and running engineering simulations and numerical analysis.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-cyan-300 border border-slate-700">C Programming</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-cyan-300 border border-slate-700">Python</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-cyan-300 border border-slate-700">MATLAB</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-cyan-300 border border-slate-700">Low-Level Dev</span>
+                    </div>
+                </div>
+
+                <!-- UAV & RF Operations -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow sm:col-span-2 lg:col-span-1">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4">
+                        <i data-lucide="radio" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">UAV &amp; Radio Systems</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Licensed unmanned aerial vehicle piloting, marine VHF radio communication protocols, and field operations.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-amber-300 border border-slate-700">UAV / Drone Piloting</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-amber-300 border border-slate-700">Marine VHF Radio</span>
+                        <span class="px-2.5 py-1 rounded bg-pcb-800 text-amber-300 border border-slate-700">Navigation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects (Customizable) -->
+        <section id="projects" class="py-14 border-t border-slate-800/80">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="folder-git-2" class="w-6 h-6 text-emerald-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Engineering Projects</h2>
+                </div>
+                <span class="font-mono text-xs text-slate-400">// Hardware &amp; Firmware</span>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Project Card 1 -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-emerald-400 px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">Embedded C</span>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors" title="View Repository">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Microcontroller Firmware &amp; Logic</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Low-level register manipulation, bitwise state machines, and peripheral interfacing built for microcontroller architectures.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center gap-3 font-mono text-xs text-slate-400">
+                        <span>C</span>
+                        <span>•</span>
+                        <span>Digital Logic</span>
+                        <span>•</span>
+                        <span>MCU</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-cyan-400 px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">Simulation</span>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors" title="View Repository">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">MATLAB &amp; Python Engineering Tools</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Numerical modeling, circuit analysis scripts, and automated data visualization workflows for electrical engineering labs.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center gap-3 font-mono text-xs text-slate-400">
+                        <span>MATLAB</span>
+                        <span>•</span>
+                        <span>Python</span>
+                        <span>•</span>
+                        <span>Simulation</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-amber-400 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">UAV &amp; RF</span>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors" title="View Repository">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">UAV Telemetry &amp; Control Systems</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Practical integration of unmanned aerial vehicle flight dynamics, sensor fusion, and radio communication protocols.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center gap-3 font-mono text-xs text-slate-400">
+                        <span>UAV</span>
+                        <span>•</span>
+                        <span>RF</span>
+                        <span>•</span>
+                        <span>Embedded</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications & Licenses -->
+        <section id="certifications" class="py-14 border-t border-slate-800/80">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="award" class="w-6 h-6 text-emerald-400"></i>
+                <h2 class="text-2xl font-bold text-white">Certifications &amp; Licenses</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 rounded-xl bg-pcb-900/70 border border-slate-800 flex items-start gap-3.5 card-glow">
+                    <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 mt-0.5">
+                        <i data-lucide="plane" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">UAV-1 Pilot License (Sport / Amateur)</h3>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">Unmanned Aerial Vehicle Certification</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-pcb-900/70 border border-slate-800 flex items-start gap-3.5 card-glow">
+                    <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 mt-0.5">
+                        <i data-lucide="radio-tower" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">Short Range Certificate (SRC / KMT)</h3>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">Marine VHF Radio Operator</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-pcb-900/70 border border-slate-800 flex items-start gap-3.5 card-glow">
+                    <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400 mt-0.5">
+                        <i data-lucide="compass" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">Amateur Seaman Certificate (ADB)</h3>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">Maritime License (Up to 24m)</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-pcb-900/70 border border-slate-800 flex items-start gap-3.5 card-glow">
+                    <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400 mt-0.5">
+                        <i data-lucide="activity" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">MATLAB Onramp</h3>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">MathWorks Simulation &amp; Computing</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-pcb-900/70 border border-slate-800 flex items-start gap-3.5 card-glow">
+                    <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400 mt-0.5">
+                        <i data-lucide="code-2" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white text-sm">Python Programming</h3>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">Software Development Certification</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Languages -->
+        <section id="education" class="py-14 border-t border-slate-800/80 grid md:grid-cols-12 gap-8">
+            <!-- Education -->
+            <div class="md:col-span-7 space-y-6">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 text-emerald-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Education</h2>
+                </div>
+
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 card-glow relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <h3 class="text-lg font-bold text-white">Izmir University of Economics</h3>
+                        <span class="font-mono text-xs text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 w-fit">
+                            Sep 2025 – Jun 2029
+                        </span>
+                    </div>
+                    <p class="text-slate-200 font-medium text-sm mb-3">
+                        Bachelor of Engineering — Electrical and Electronics Engineering
+                    </p>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Focusing on embedded systems, microcontroller architectures, digital logic design, and hands-on hardware/firmware engineering.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="md:col-span-5 space-y-6">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="languages" class="w-6 h-6 text-emerald-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Languages</h2>
+                </div>
+
+                <div class="p-6 rounded-xl bg-pcb-900/90 border border-slate-800 space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span class="font-medium text-white">Turkish</span>
+                            <span class="font-mono text-xs text-emerald-400">Native / Bilingual</span>
+                        </div>
+                        <div class="w-full h-2 bg-pcb-800 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-full w-full"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span class="font-medium text-white">English</span>
+                            <span class="font-mono text-xs text-cyan-400">Professional Working</span>
+                        </div>
+                        <div class="w-full h-2 bg-pcb-800 rounded-full overflow-hidden">
+                            <div class="bg-cyan-500 h-full w-4/5"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span class="font-medium text-white">German</span>
+                            <span class="font-mono text-xs text-amber-400">Elementary</span>
+                        </div>
+                        <div class="w-full h-2 bg-pcb-800 rounded-full overflow-hidden">
+                            <div class="bg-amber-500 h-full w-2/5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-14 border-t border-slate-800/80">
+            <div class="p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-pcb-900 via-pcb-900 to-emerald-950/30 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                    <span class="font-mono text-xs text-emerald-400 uppercase tracking-wider">// Initialize Connection</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Let's build something together.</h2>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Open to connecting with fellow engineers, researchers, and tech enthusiasts for embedded systems, hardware, and firmware projects.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="mailto:semihkepenekli157@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-sm transition-all">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        semihkepenekli157@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/semih-kepenekli" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-pcb-800 hover:bg-slate-800 text-white border border-slate-700 font-medium text-sm transition-all">
+                        <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-8 text-center font-mono text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 Semih Kepenekli. Built for GitHub Pages.</p>
+            <p class="text-slate-400">İzmir, Türkiye // EEE @ IUE</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
