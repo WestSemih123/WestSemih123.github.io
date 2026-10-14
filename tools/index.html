@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineer Swiss Army Knife | Semih Kepenekli</title>
+    <meta name="description" content="Online engineering toolkit: Resistors, LED, SMD, Op-Amp, 555 Timer, PCB Trace, Filters, Logic Gates, and more.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        pcb: {
+                            950: '#070b0e',
+                            900: '#0c1318',
+                            800: '#131f28',
+                            accent: '#10b981',
+                            cyan: '#06b6d4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #070b0e;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+        }
+        .tool-tab.active {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-300 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="w-full z-50 backdrop-blur-md bg-pcb-950/80 border-b border-slate-800/80 sticky top-0">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="../" class="font-mono text-sm px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Main Site</span>
+                </a>
+                <div class="font-mono font-bold text-white flex items-center gap-2">
+                    <span class="text-emerald-400">&lt;</span>Swiss Knife<span class="text-emerald-400">/&gt;</span>
+                    <span class="text-xs text-slate-400 hidden sm:inline font-normal">v7.6 Web Port</span>
+                </div>
+            </div>
+            
+            <a href="https://github.com/WestSemih123/Engineer_Swiss_Army_Knife" target="_blank" class="font-mono text-xs px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition flex items-center gap-2">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>View Python Repo</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Sekmeler Menüsü (Sidebar) -->
+        <div class="lg:col-span-3 bg-pcb-900/90 border border-slate-800 rounded-xl p-3 flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible sticky lg:top-24">
+            <button onclick="switchTab('resistor')" class="tool-tab active w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> Resistor Color Code
+            </button>
+            <button onclick="switchTab('led')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="zap" class="w-4 h-4 text-cyan-400"></i> LED Series Resistor
+            </button>
+            <button onclick="switchTab('divider')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="git-commit" class="w-4 h-4 text-amber-400"></i> Voltage Divider
+            </button>
+            <button onclick="switchTab('smd_cap')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i> SMD &amp; Capacitor Decoder
+            </button>
+            <button onclick="switchTab('filter')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i> RC Filter (Cutoff fc)
+            </button>
+            <button onclick="switchTab('opamp')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="triangle" class="w-4 h-4 text-cyan-400"></i> Op-Amp Gain / Vout
+            </button>
+            <button onclick="switchTab('timer555')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> NE555 Astable Timer
+            </button>
+            <button onclick="switchTab('pcb')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="maximize-2" class="w-4 h-4 text-emerald-400"></i> PCB Trace Width (IPC-2221)
+            </button>
+            <button onclick="switchTab('logic')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="toggle-left" class="w-4 h-4 text-purple-400"></i> Logic Gates Simulator
+            </button>
+            <button onclick="switchTab('base')" class="tool-tab w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-medium border border-transparent flex items-center gap-3 transition">
+                <i data-lucide="binary" class="w-4 h-4 text-cyan-400"></i> Base Converter (Hex/Dec/Bin)
+            </button>
+        </div>
+
+        <!-- Hesaplama Panelleri (Main Workspace) -->
+        <div class="lg:col-span-9 bg-pcb-900/90 border border-slate-800 rounded-xl p-6 sm:p-8 min-h-[500px]">
+            
+            <!-- 1. RESISTOR CALCULATOR -->
+            <div id="tab-resistor" class="tool-content space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">4-Band Resistor Color Code</h2>
+                    <p class="text-slate-400 text-sm">Calculate standard axial resistor values and tolerance percentages.</p>
+                </div>
+
+                <!-- Resistor Visual -->
+                <div class="bg-pcb-950 p-6 rounded-xl border border-slate-800 flex items-center justify-center">
+                    <div class="relative w-72 h-16 bg-[#e0c9a6] rounded-md flex items-center justify-between px-6 border-2 border-[#b59a76]">
+                        <div class="absolute -left-10 w-10 h-1.5 bg-slate-400"></div>
+                        <div class="absolute -right-10 w-10 h-1.5 bg-slate-400"></div>
+                        <div id="band1-vis" class="w-4 h-full bg-amber-900"></div>
+                        <div id="band2-vis" class="w-4 h-full bg-black"></div>
+                        <div id="band3-vis" class="w-4 h-full bg-red-600"></div>
+                        <div id="band4-vis" class="w-4 h-full bg-yellow-500"></div>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-4 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Band 1 (Digit)</label>
+                        <select id="res-b1" onchange="calcResistor()" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2 text-white outline-none">
+                            <option value="1">1 Brown</option>
+                            <option value="2">2 Red</option>
+                            <option value="3">3 Orange</option>
+                            <option value="4">4 Yellow</option>
+                            <option value="5">5 Green</option>
+                            <option value="6">6 Blue</option>
+                            <option value="7">7 Violet</option>
+                            <option value="8">8 Gray</option>
+                            <option value="9">9 White</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Band 2 (Digit)</label>
+                        <select id="res-b2" onchange="calcResistor()" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2 text-white outline-none">
+                            <option value="0">0 Black</option>
+                            <option value="1">1 Brown</option>
+                            <option value="2">2 Red</option>
+                            <option value="3">3 Orange</option>
+                            <option value="4">4 Yellow</option>
+                            <option value="5">5 Green</option>
+                            <option value="6">6 Blue</option>
+                            <option value="7">7 Violet</option>
+                            <option value="8">8 Gray</option>
+                            <option value="9">9 White</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Band 3 (Multiplier)</label>
+                        <select id="res-b3" onchange="calcResistor()" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2 text-white outline-none">
+                            <option value="1">x1 Black</option>
+                            <option value="10">x10 Brown</option>
+                            <option value="100" selected>x100 Red</option>
+                            <option value="1000">x1k Orange</option>
+                            <option value="10000">x10k Yellow</option>
+                            <option value="100000">x100k Green</option>
+                            <option value="1000000">x1M Blue</option>
+                            <option value="0.1">x0.1 Gold</option>
+                            <option value="0.01">x0.01 Silver</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Band 4 (Tolerance)</label>
+                        <select id="res-b4" onchange="calcResistor()" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2 text-white outline-none">
+                            <option value="1">±1% Brown</option>
+                            <option value="2">±2% Red</option>
+                            <option value="0.5">±0.5% Green</option>
+                            <option value="5" selected>±5% Gold</option>
+                            <option value="10">±10% Silver</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800 flex items-center justify-between">
+                    <span class="text-slate-400 font-mono text-sm">Calculated Resistance:</span>
+                    <span id="res-result" class="font-mono text-2xl font-bold text-emerald-400">1.00 kΩ ±5%</span>
+                </div>
+            </div>
+
+            <!-- 2. LED SERIES RESISTOR -->
+            <div id="tab-led" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">LED Current Limiting Resistor</h2>
+                    <p class="text-slate-400 text-sm">Calculate series resistance and dissipated power for various LED diodes.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Supply Voltage (Vs in Volts)</label>
+                        <input id="led-vs" type="number" step="0.1" value="5.0" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">LED Color / Forward Drop</label>
+                        <select id="led-vf" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                            <option value="2.0">Red (~2.0V)</option>
+                            <option value="2.1">Yellow (~2.1V)</option>
+                            <option value="2.2">Green (~2.2V)</option>
+                            <option value="3.2" selected>Blue (~3.2V)</option>
+                            <option value="3.2">White (~3.2V)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Forward Current (I)</label>
+                        <select id="led-i" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                            <option value="0.020" selected>20 mA (Standard)</option>
+                            <option value="0.010">10 mA (Low Power)</option>
+                            <option value="0.002">2 mA (Ultra Low)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="calcLed()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Compute Series Resistor
+                </button>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Required Resistor:</span>
+                        <span id="led-res" class="font-mono text-2xl font-bold text-cyan-400">90.0 Ω</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Power Dissipated:</span>
+                        <span id="led-pwr" class="font-mono text-2xl font-bold text-amber-400">0.036 W</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. VOLTAGE DIVIDER -->
+            <div id="tab-divider" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">Voltage Divider Calculator</h2>
+                    <p class="text-slate-400 text-sm">Calculate output voltage with resistive dividers: Vout = Vin * (R2 / (R1 + R2))</p>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Vin (Volts)</label>
+                        <input id="div-vin" type="number" step="0.1" value="12" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">R1 (Ohms)</label>
+                        <input id="div-r1" type="number" value="10000" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">R2 (Ohms)</label>
+                        <input id="div-r2" type="number" value="10000" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                </div>
+
+                <button onclick="calcDivider()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Calculate Vout
+                </button>
+
+                <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800 flex items-center justify-between">
+                    <span class="text-slate-400 font-mono text-sm">Output Voltage (Vout):</span>
+                    <span id="div-result" class="font-mono text-2xl font-bold text-emerald-400">6.00 V</span>
+                </div>
+            </div>
+
+            <!-- 4. SMD & CAPACITOR DECODER -->
+            <div id="tab-smd_cap" class="tool-content hidden space-y-8">
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-white mb-1">SMD Resistor Decoder</h2>
+                    <div class="flex gap-3">
+                        <input id="smd-in" type="text" placeholder="e.g. 103, 4R7, 1002" value="103" class="bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white font-mono flex-1 outline-none">
+                        <button onclick="calcSMD()" class="px-5 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm font-semibold transition">
+                            Decode
+                        </button>
+                    </div>
+                    <div class="p-3 bg-pcb-950 rounded-lg border border-slate-800 font-mono text-sm text-cyan-300" id="smd-res">
+                        Decoded Value: 10 kΩ
+                    </div>
+                </div>
+
+                <div class="space-y-4 border-t border-slate-800 pt-6">
+                    <h2 class="text-xl font-bold text-white mb-1">Ceramic Capacitor Code Decoder</h2>
+                    <div class="flex gap-3">
+                        <input id="cap-in" type="text" placeholder="e.g. 104, 223, 471" value="104" class="bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white font-mono flex-1 outline-none">
+                        <button onclick="calcCap()" class="px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-sm font-semibold transition">
+                            Decode
+                        </button>
+                    </div>
+                    <div class="p-3 bg-pcb-950 rounded-lg border border-slate-800 font-mono text-sm text-emerald-300" id="cap-res">
+                        Capacity: 100 nF (0.10 µF / 100000 pF)
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. RC FILTER (fc) -->
+            <div id="tab-filter" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">Passive RC Filter Cutoff Frequency</h2>
+                    <p class="text-slate-400 text-sm">Cutoff formula: fc = 1 / (2 * π * R * C)</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Resistance (kΩ)</label>
+                        <input id="filt-r" type="number" step="0.1" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Capacitance (µF)</label>
+                        <input id="filt-c" type="number" step="0.01" value="0.1" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                </div>
+
+                <button onclick="calcFilter()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Calculate Cutoff Frequency (fc)
+                </button>
+
+                <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800 flex items-center justify-between">
+                    <span class="text-slate-400 font-mono text-sm">Cutoff Frequency (-3dB):</span>
+                    <span id="filt-result" class="font-mono text-2xl font-bold text-emerald-400">159.15 Hz</span>
+                </div>
+            </div>
+
+            <!-- 6. OP-AMP GAIN / VOUT -->
+            <div id="tab-opamp" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">Op-Amp Amplifier (Inverting / Non-Inverting)</h2>
+                    <p class="text-slate-400 text-sm">Calculate ideal closed-loop gain (Av) and output voltage.</p>
+                </div>
+
+                <div class="flex gap-4 font-mono text-sm">
+                    <label class="flex items-center gap-2 text-slate-300">
+                        <input type="radio" name="opamp-type" value="inv" checked onchange="calcOpamp()"> Inverting (Av = -Rf/R1)
+                    </label>
+                    <label class="flex items-center gap-2 text-slate-300">
+                        <input type="radio" name="opamp-type" value="noninv" onchange="calcOpamp()"> Non-Inverting (Av = 1 + Rf/R1)
+                    </label>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Vin (V)</label>
+                        <input id="op-vin" type="number" step="0.1" value="1.0" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">R1 (kΩ)</label>
+                        <input id="op-r1" type="number" step="0.1" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Rf (Feedback kΩ)</label>
+                        <input id="op-rf" type="number" step="0.1" value="47" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                </div>
+
+                <button onclick="calcOpamp()" class="w-full py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Compute Gain &amp; Vout
+                </button>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Gain (Av):</span>
+                        <span id="op-gain" class="font-mono text-2xl font-bold text-cyan-400">-4.70</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Output Voltage (Vout):</span>
+                        <span id="op-vout" class="font-mono text-2xl font-bold text-rose-400">-4.70 V</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. NE555 ASTABLE TIMER -->
+            <div id="tab-timer555" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">NE555 Astable Multivibrator</h2>
+                    <p class="text-slate-400 text-sm">Calculate oscillator frequency and duty cycle.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">R1 (kΩ)</label>
+                        <input id="n555-r1" type="number" step="0.1" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">R2 (kΩ)</label>
+                        <input id="n555-r2" type="number" step="0.1" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">C (µF)</label>
+                        <input id="n555-c" type="number" step="0.01" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                </div>
+
+                <button onclick="calc555()" class="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Compute Frequency &amp; Duty
+                </button>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Oscillation Frequency:</span>
+                        <span id="n555-freq" class="font-mono text-2xl font-bold text-emerald-400">4.80 Hz</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800">
+                        <span class="text-slate-400 font-mono text-xs block mb-1">Duty Cycle:</span>
+                        <span id="n555-duty" class="font-mono text-2xl font-bold text-amber-400">66.7 %</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. PCB TRACE WIDTH -->
+            <div id="tab-pcb" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">PCB Trace Width (IPC-2221)</h2>
+                    <p class="text-slate-400 text-sm">Calculate minimum trace width based on current carrying capacity and copper weight.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-4 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Current (Amps)</label>
+                        <input id="pcb-i" type="number" step="0.1" value="1.5" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Temp Rise (°C)</label>
+                        <input id="pcb-dt" type="number" value="10" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Copper Thickness</label>
+                        <select id="pcb-oz" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                            <option value="0.5">0.5 oz</option>
+                            <option value="1.0" selected>1.0 oz (Standard)</option>
+                            <option value="2.0">2.0 oz</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Layer Type</label>
+                        <select id="pcb-layer" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                            <option value="ext" selected>External Layer</option>
+                            <option value="int">Internal Layer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="calcPCB()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold font-mono text-sm transition">
+                    Calculate Min Width
+                </button>
+
+                <div class="p-4 rounded-xl bg-pcb-950 border border-slate-800 flex items-center justify-between">
+                    <span class="text-slate-400 font-mono text-sm">Required Trace Width:</span>
+                    <span id="pcb-res" class="font-mono text-2xl font-bold text-cyan-400">0.762 mm (30.0 mil)</span>
+                </div>
+            </div>
+
+            <!-- 9. LOGIC GATES SIMULATOR -->
+            <div id="tab-logic" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">Interactive Logic Gate Simulator</h2>
+                    <p class="text-slate-400 text-sm">Toggle inputs A and B to evaluate digital gate outputs.</p>
+                </div>
+
+                <div class="flex items-center gap-4 font-mono text-sm">
+                    <span class="text-slate-400 text-xs">Select Gate:</span>
+                    <select id="logic-gate" onchange="calcLogic()" class="bg-pcb-800 border border-slate-700 rounded-lg p-2 text-white outline-none">
+                        <option value="AND">AND Gate</option>
+                        <option value="OR">OR Gate</option>
+                        <option value="NOT">NOT Gate</option>
+                        <option value="NAND">NAND Gate</option>
+                        <option value="NOR">NOR Gate</option>
+                        <option value="XOR">XOR Gate</option>
+                        <option value="XNOR">XNOR Gate</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-6 items-center justify-center p-8 bg-pcb-950 rounded-xl border border-slate-800 font-mono">
+                    <button id="btn-inA" onclick="toggleInput('A')" class="px-6 py-3 rounded-lg border font-bold text-sm bg-slate-800 text-slate-400 border-slate-700 transition">
+                        Input A: 0
+                    </button>
+                    <button id="btn-inB" onclick="toggleInput('B')" class="px-6 py-3 rounded-lg border font-bold text-sm bg-slate-800 text-slate-400 border-slate-700 transition">
+                        Input B: 0
+                    </button>
+                    <div class="w-12 h-0.5 bg-slate-700"></div>
+                    <div class="text-center">
+                        <span class="text-xs text-slate-500 block mb-1">Output Q</span>
+                        <div id="logic-out" class="w-14 h-14 rounded-full border-2 border-slate-700 bg-slate-900 flex items-center justify-center text-xl font-bold text-slate-500 transition">
+                            0
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. BASE CONVERTER -->
+            <div id="tab-base" class="tool-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-1">Radix Base Converter</h2>
+                    <p class="text-slate-400 text-sm">Convert numbers between Decimal, Hexadecimal, and Binary representations.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-sm">
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Decimal (Base 10)</label>
+                        <input id="base-dec" oninput="convertBase('dec')" type="number" placeholder="255" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Hexadecimal (Base 16)</label>
+                        <input id="base-hex" oninput="convertBase('hex')" type="text" placeholder="FF" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 text-xs">Binary (Base 2)</label>
+                        <input id="base-bin" oninput="convertBase('bin')" type="text" placeholder="11111111" class="w-full bg-pcb-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800/80 py-6 text-center font-mono text-xs text-slate-500 mt-12">
+        <p>Engineer Swiss Army Knife — Ported from <a href="https://github.com/WestSemih123/Engineer_Swiss_Army_Knife" class="text-emerald-400 hover:underline">Python Desktop App</a>.</p>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tool-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tool-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Resistor
+        const bandColors = {
+            '0': '#000000', '1': '#8B4513', '2': '#dc2626', '3': '#ea580c',
+            '4': '#facc15', '5': '#16a34a', '6': '#2563eb', '7': '#7c3aed',
+            '8': '#6b7280', '9': '#ffffff', '0.1': '#ffd700', '0.01': '#c0c0c0', '5': '#ffd700', '10': '#c0c0c0', '0.5': '#16a34a'
+        };
+
+        function calcResistor() {
+            const b1 = document.getElementById('res-b1').value;
+            const b2 = document.getElementById('res-b2').value;
+            const b3 = parseFloat(document.getElementById('res-b3').value);
+            const b4 = document.getElementById('res-b4').value;
+
+            document.getElementById('band1-vis').style.backgroundColor = bandColors[b1];
+            document.getElementById('band2-vis').style.backgroundColor = bandColors[b2];
+            document.getElementById('band3-vis').style.backgroundColor = bandColors[b3.toString()];
+            document.getElementById('band4-vis').style.backgroundColor = bandColors[b4];
+
+            const ohm = (parseInt(b1) * 10 + parseInt(b2)) * b3;
+            let formatted = ohm + " Ω";
+            if (ohm >= 1e6) formatted = (ohm / 1e6).toFixed(2) + " MΩ";
+            else if (ohm >= 1e3) formatted = (ohm / 1e3).toFixed(2) + " kΩ";
+
+            document.getElementById('res-result').textContent = `${formatted} ±${b4}%`;
+        }
+
+        // LED
+        function calcLed() {
+            const vs = parseFloat(document.getElementById('led-vs').value);
+            const vf = parseFloat(document.getElementById('led-vf').value);
+            const i = parseFloat(document.getElementById('led-i').value);
+            if (vs <= vf) {
+                document.getElementById('led-res').textContent = "Vs <= Vf (Too Low)";
+                document.getElementById('led-pwr').textContent = "---";
+                return;
+            }
+            const r = (vs - vf) / i;
+            const p = (vs - vf) * i;
+            document.getElementById('led-res').textContent = r.toFixed(1) + " Ω";
+            document.getElementById('led-pwr').textContent = p.toFixed(3) + " W";
+        }
+
+        // Divider
+        function calcDivider() {
+            const vin = parseFloat(document.getElementById('div-vin').value);
+            const r1 = parseFloat(document.getElementById('div-r1').value);
+            const r2 = parseFloat(document.getElementById('div-r2').value);
+            const vout = vin * (r2 / (r1 + r2));
+            document.getElementById('div-result').textContent = vout.toFixed(2) + " V";
+        }
+
+        // SMD & Cap
+        function calcSMD() {
+            const code = document.getElementById('smd-in').value.trim().toUpperCase();
+            let val = 0;
+            if (code.includes('R')) {
+                val = parseFloat(code.replace('R', '.'));
+            } else if ([3, 4].includes(code.length) && !isNaN(code)) {
+                val = parseInt(code.slice(0, -1)) * Math.pow(10, parseInt(code.slice(-1)));
+            }
+            let res = val + " Ω";
+            if (val >= 1e6) res = (val / 1e6).toFixed(2) + " MΩ";
+            else if (val >= 1e3) res = (val / 1e3).toFixed(2) + " kΩ";
+            document.getElementById('smd-res').textContent = "Decoded Value: " + res;
+        }
+
+        function calcCap() {
+            const code = document.getElementById('cap-in').value.trim();
+            if (code.length === 3 && !isNaN(code)) {
+                const pf = parseInt(code.slice(0, 2)) * Math.pow(10, parseInt(code[2]));
+                const nf = pf / 1000;
+                const uf = nf / 1000;
+                document.getElementById('cap-res').textContent = `Capacity: ${nf.toFixed(2)} nF (${uf.toFixed(2)} µF / ${pf} pF)`;
+            }
+        }
+
+        // Filter
+        function calcFilter() {
+            const r = parseFloat(document.getElementById('filt-r').value) * 1000;
+            const c = parseFloat(document.getElementById('filt-c').value) / 1e6;
+            const fc = 1 / (2 * Math.PI * r * c);
+            document.getElementById('filt-result').textContent = fc.toFixed(2) + " Hz";
+        }
+
+        // Opamp
+        function calcOpamp() {
+            const type = document.querySelector('input[name="opamp-type"]:checked').value;
+            const vin = parseFloat(document.getElementById('op-vin').value);
+            const r1 = parseFloat(document.getElementById('op-r1').value);
+            const rf = parseFloat(document.getElementById('op-rf').value);
+            const gain = type === 'inv' ? -(rf / r1) : 1 + (rf / r1);
+            const vout = vin * gain;
+            document.getElementById('op-gain').textContent = gain.toFixed(2);
+            document.getElementById('op-vout').textContent = vout.toFixed(2) + " V";
+        }
+
+        // 555
+        function calc555() {
+            const r1 = parseFloat(document.getElementById('n555-r1').value) * 1000;
+            const r2 = parseFloat(document.getElementById('n555-r2').value) * 1000;
+            const c = parseFloat(document.getElementById('n555-c').value) / 1e6;
+            const freq = 1.44 / ((r1 + 2 * r2) * c);
+            const duty = ((r1 + r2) / (r1 + 2 * r2)) * 100;
+            document.getElementById('n555-freq').textContent = freq.toFixed(2) + " Hz";
+            document.getElementById('n555-duty').textContent = duty.toFixed(1) + " %";
+        }
+
+        // PCB
+        function calcPCB() {
+            const i = parseFloat(document.getElementById('pcb-i').value);
+            const dt = parseFloat(document.getElementById('pcb-dt').value);
+            const oz = parseFloat(document.getElementById('pcb-oz').value);
+            const layer = document.getElementById('pcb-layer').value;
+            const k = layer === 'ext' ? 0.048 : 0.024;
+            const areaMils2 = Math.pow(i / (k * Math.pow(dt, 0.44)), 1 / 0.725);
+            const thickMils = oz * 1.378;
+            const widthMils = areaMils2 / thickMils;
+            const widthMm = widthMils * 0.0254;
+            document.getElementById('pcb-res').textContent = `${widthMm.toFixed(3)} mm (${widthMils.toFixed(1)} mil)`;
+        }
+
+        // Logic
+        let stateA = 0;
+        let stateB = 0;
+        function toggleInput(which) {
+            if (which === 'A') {
+                stateA = stateA ? 0 : 1;
+                const btn = document.getElementById('btn-inA');
+                btn.textContent = `Input A: ${stateA}`;
+                btn.className = stateA ? 'px-6 py-3 rounded-lg border font-bold text-sm bg-emerald-500/20 text-emerald-400 border-emerald-500/40 transition' : 'px-6 py-3 rounded-lg border font-bold text-sm bg-slate-800 text-slate-400 border-slate-700 transition';
+            } else {
+                stateB = stateB ? 0 : 1;
+                const btn = document.getElementById('btn-inB');
+                btn.textContent = `Input B: ${stateB}`;
+                btn.className = stateB ? 'px-6 py-3 rounded-lg border font-bold text-sm bg-emerald-500/20 text-emerald-400 border-emerald-500/40 transition' : 'px-6 py-3 rounded-lg border font-bold text-sm bg-slate-800 text-slate-400 border-slate-700 transition';
+            }
+            calcLogic();
+        }
+
+        function calcLogic() {
+            const gate = document.getElementById('logic-gate').value;
+            let out = 0;
+            if (gate === 'AND') out = stateA && stateB;
+            else if (gate === 'OR') out = stateA || stateB;
+            else if (gate === 'NOT') out = !stateA;
+            else if (gate === 'NAND') out = !(stateA && stateB);
+            else if (gate === 'NOR') out = !(stateA || stateB);
+            else if (gate === 'XOR') out = stateA ^ stateB;
+            else if (gate === 'XNOR') out = !(stateA ^ stateB);
+
+            out = out ? 1 : 0;
+            const outEl = document.getElementById('logic-out');
+            outEl.textContent = out;
+            if (out) {
+                outEl.className = 'w-14 h-14 rounded-full border-2 border-emerald-400 bg-emerald-500/20 flex items-center justify-center text-xl font-bold text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition';
+            } else {
+                outEl.className = 'w-14 h-14 rounded-full border-2 border-slate-700 bg-slate-900 flex items-center justify-center text-xl font-bold text-slate-500 transition';
+            }
+        }
+
+        // Base
+        function convertBase(from) {
+            let val = 0;
+            if (from === 'dec') {
+                val = parseInt(document.getElementById('base-dec').value);
+            } else if (from === 'hex') {
+                val = parseInt(document.getElementById('base-hex').value, 16);
+            } else if (from === 'bin') {
+                val = parseInt(document.getElementById('base-bin').value, 2);
+            }
+
+            if (!isNaN(val)) {
+                if (from !== 'dec') document.getElementById('base-dec').value = val;
+                if (from !== 'hex') document.getElementById('base-hex').value = val.toString(16).toUpperCase();
+                if (from !== 'bin') document.getElementById('base-bin').value = val.toString(2);
+            }
+        }
+
+        // Initial trigger
+        calcResistor();
+        calcLed();
+        calcDivider();
+        calcSMD();
+        calcCap();
+        calcFilter();
+        calcOpamp();
+        calc555();
+        calcPCB();
+        calcLogic();
+    </script>
+</body>
+</html>
